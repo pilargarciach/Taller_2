@@ -87,8 +87,8 @@ button { padding: 9px 22px; border-radius: 7px; font-size: 0.9rem; font-weight: 
 
 <header>
   <div>
-    <h1>🔍 Taller: Formulación de Palabras Clave de Investigación</h1>
-    <p>Material creado por profesora María del Pilar García Chitiva — ©2026</p>
+    <h1>🔍 Taller: Formulación de Palabras Clave Proyecto de Investigación</h1>
+    <p>Material creado por Dra. María del Pilar García Chitiva — Versión 1 ©2016 Versión 2 2026</p>
   </div>
   <div class="progress-bar" id="pdots"></div>
 </header>
@@ -143,7 +143,7 @@ button { padding: 9px 22px; border-radius: 7px; font-size: 0.9rem; font-weight: 
   <div class="zone-body">
     <div class="instruccion">
       <strong>📋 Instrucción:</strong> Seleccionen la idea que creen que mejor describe el tema o la cuestión que quieren abordar en el proyecto. 
-      Luego, identifiquen mentalmente o escriban separando en color rojo todos los <strong>artículos, verbos, adjetivos y adverbios</strong> para aislar el núcleo conceptual.
+      Luego, identifiquen mentalmente o eliminen todos los <strong>artículos, verbos, adjetivos y adverbios</strong> para aislar el núcleo conceptual. 
     </div>
     <div class="info-box">
       <strong>🔗 Enlaces de apoyo recomendados:</strong>
@@ -154,7 +154,7 @@ button { padding: 9px 22px; border-radius: 7px; font-size: 0.9rem; font-weight: 
     </div>
     <label class="fl">Idea seleccionada definitiva</label>
     <textarea id="idea_seleccionada" placeholder="Copia aquí la mejor redacción de la idea elegida..."></textarea>
-    <label class="fl">Desglose de palabras eliminadas (artículos, verbos, adjetivos, adverbios descartados)</label>
+    <label class="fl">Escriban aquí las palabras que no son artículos, verbos, adjetivos, adverbios descartados, de la idea definitiva escrita arriba..</label>
     <textarea id="descartadas" class="sm" placeholder="Palabras auxiliares o conectores identificados..."></textarea>
     <div class="nav-btns">
       <button type="button" class="bp" onclick="goTo(-1)">← Anterior</button>
@@ -188,8 +188,10 @@ button { padding: 9px 22px; border-radius: 7px; font-size: 0.9rem; font-weight: 
     </div>
     <div class="info-box">
       <strong>🌐 Herramientas de búsqueda recomendadas:</strong>
-      • <a href="http://vocabularies.unesco.org/browser/thesaurus/es/" target="_blank">Tesauro de la UNESCO</a> | 
-      • <a href="https://servicios.elpais.com/diccionarios/sinonimos-antonimos/" target="_blank">Diccionario El País</a> | 
+      • <a href="http://vocabularies.unesco.org/browser/thesaurus/es/" target="_blank">UNESCO Thesaurus</a> | 
+      • <a href="https://www.ieee.org/publications/services/thesaurus" target="_blank">IEEE Thesaurus</a> |
+      • <a href="https://eric.ed.gov/?q=THESAUROS" target="_blank">ERIC Thesaurus</a> | 
+      • <a href="https://www.apa.org/pubs/databases/training/thesaurus" target="_blank">APA Thesaurus</a> | 
       • <a href="http://www.wordreference.com/sinonimos/diccionario" target="_blank">WordReference Sinónimos</a>
     </div>
     <label class="fl">Sinónimos y términos homólogos por concepto</label>
@@ -206,12 +208,12 @@ button { padding: 9px 22px; border-radius: 7px; font-size: 0.9rem; font-weight: 
   <div class="zone-header">🔀 Paso 5 — Combinaciones de Búsqueda <span class="zone-badge">Paso 5 de 5</span></div>
   <div class="zone-body">
     <div class="instruccion">
-      <strong>📋 Instrucción:</strong> Escriban <strong>TODAS las posibles combinaciones</strong> (ecuaciones de búsqueda con operadores booleanos OR / AND) con esas palabras y sinónimos, de manera que resuman lo que quieren abordar en su problema de investigación.
+      <strong>📋 Instrucción:</strong> Escriban <strong>TODAS las posibles combinaciones</strong> (QUERY con operadores booleanos AND/ OR / NOT) con esas palabras y sinónimos, de manera que resuman lo que quieren abordar en su problema de investigación. AND (Restringe. Ambos conceoto deben aparecer), OR (Amplía. Basta con uno o con otro. Agrupa sinónimos y aumenta las posibilidades), NOT (Excluye. Descarta un término no deseado)
     </div>
     <div class="grid-3">
-      <div><div class="col-lbl">Combinación 1</div><textarea id="comb1" placeholder="Ecuación de búsqueda 1..."></textarea></div>
-      <div><div class="col-lbl">Combinación 2</div><textarea id="comb2" placeholder="Ecuación de búsqueda 2..."></textarea></div>
-      <div><div class="col-lbl">Combinación 3</div><textarea id="comb3" placeholder="Ecuación de búsqueda 3..."></textarea></div>
+      <div><div class="col-lbl">Combinación 1</div><textarea id="comb1" placeholder="Query para búsqueda 1..."></textarea></div>
+      <div><div class="col-lbl">Combinación 2</div><textarea id="comb2" placeholder="Query para búsqueda 2..."></textarea></div>
+      <div><div class="col-lbl">Combinación 3</div><textarea id="comb3" placeholder="Query para búsqueda 3..."></textarea></div>
     </div>
     <div class="nav-btns">
       <button type="button" class="bp" onclick="goTo(-1)">← Anterior</button>
