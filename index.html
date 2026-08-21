@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taller: Palabras Clave de Investigación</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f4f8; color: #222; }
+
+header {
+  background: #2e7d32; color: white;
+  padding: 16px 28px; display: flex; align-items: center;
+  justify-content: space-between; flex-wrap: wrap; gap: 10px;
+}
+header h1 { font-size: 1.1rem; font-weight: 700; }
+header p { font-size: 0.78rem; opacity: 0.85; margin-top: 2px; }
+
+.progress-bar { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; }
+.step-dot {
+  width: 26px; height: 26px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700;
+  background: rgba(255,255,255,0.2); color: white;
+  border: 2px solid rgba(255,255,255,0.4); cursor: pointer; transition: all 0.2s;
+}
+.step-dot.active { background: white; color: #2e7d32; border-color: white; }
+.step-dot.done { background: #a5d6a7; border-color: #a5d6a7; }
+
+main { max-width: 960px; margin: 28px auto; padding: 0 14px 100px; }
+
+.zone-card { display: none; border-radius: 10px; overflow: hidden; border: 2px solid #ccc; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); background: white; }
+.zone-card.active { display: block; }
+
+.zone-header { padding: 13px 18px; font-weight: 700; font-size: 0.97rem; display: flex; align-items: center; gap: 8px; }
+.zone-badge { font-size: 11px; padding: 3px 9px; border-radius: 20px; font-weight: 600; background: rgba(0,0,0,0.13); }
+.zone-body { padding: 18px; background: white; }
+
+.instruccion { border-radius: 7px; padding: 12px 14px; margin-bottom: 16px; font-size: 0.87rem; line-height: 1.6; border-left: 4px solid #2e7d32; background: #f1f8e9; }
+.info-box { border-radius: 7px; padding: 12px 14px; margin-bottom: 16px; font-size: 0.84rem; line-height: 1.65; color: #1b5e20; border: 1px solid #c8e6c9; background: #e8f5e9; }
+.info-box strong { display: block; margin-bottom: 5px; font-size: 0.88rem; }
+
+label.fl { display: block; font-size: 0.8rem; font-weight: 700; color: #555; margin: 14px 0 5px; }
+label.fl:first-of-type { margin-top: 0; }
+
+input[type=text], input[type=date], textarea {
+  width: 100%; border: 1.5px solid #ddd; border-radius: 7px;
+  padding: 9px 11px; font-size: 0.91rem; font-family: inherit; color: #222; background: white;
+  transition: border-color 0.2s;
+}
+input[type=text]:focus, input[type=date]:focus, textarea:focus { outline: none; border-color: #2e7d32; }
+textarea { resize: vertical; min-height: 88px; }
+textarea.sm { min-height: 70px; }
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+@media(max-width:640px) { .grid-3,.grid-2 { grid-template-columns: 1fr; } }
+
+.col-lbl { font-size: 0.77rem; font-weight: 700; text-align: center; padding: 5px; border-radius: 5px; margin-bottom: 7px; background: rgba(0,0,0,0.08); color: #333; }
+
+.nav-btns { display: flex; gap: 10px; margin-top: 22px; justify-content: flex-end; }
+button { padding: 9px 22px; border-radius: 7px; font-size: 0.9rem; font-weight: 700; cursor: pointer; border: none; transition: all 0.15s; }
+.bp { background: #eee; color: #444; } .bp:hover { background: #ddd; }
+.bn { background: #2e7d32; color: white; } .bn:hover { background: #1b5e20; }
+.bd { background: #2e7d32; color: white; } .bd:hover { background: #1b5e20; }
+.bd.pdf { background: #b71c1c; } .bd.pdf:hover { background: #7f0000; }
+
+#zone-grupo { border-color: #2e7d32; }
+#zone-grupo .zone-header { background: #e8f5e9; border-bottom: 2px solid #2e7d32; color: #1b5e20; }
+#zone-idea { border-color: #388e3c; }
+#zone-idea .zone-header { background: #c8e6c9; border-bottom: 2px solid #388e3c; color: #1b5e20; }
+#zone-filtro { border-color: #43a047; }
+#zone-filtro .zone-header { background: #a5d6a7; border-bottom: 2px solid #43a047; color: #1b5e20; }
+#zone-palabras { border-color: #2e7d32; }
+#zone-palabras .zone-header { background: #81c784; border-bottom: 2px solid #2e7d32; color: #1b5e20; }
+#zone-sinonimos { border-color: #1b5e20; }
+#zone-sinonimos .zone-header { background: #66bb6a; border-bottom: 2px solid #1b5e20; color: white; }
+#zone-combinaciones { border-color: #004d40; }
+#zone-combinaciones .zone-header { background: #a7ffeb; border-bottom: 2px solid #004d40; color: #004d40; }
+#zone-resumen { border-color: #2e7d32; }
+#zone-resumen .zone-header { background: #2e7d32; color: white; }
+
+#download-area { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin: 20px 0 8px; }
+.fnote { font-size: 0.74rem; color: #888; text-align: center; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>🔍 Taller: Formulación de Palabras Clave de Investigación</h1>
+    <p>Material creado por profesora María del Pilar García Chitiva — ©2026</p>
+  </div>
+  <div class="progress-bar" id="pdots"></div>
+</header>
+
+<main>
+
+<!-- DATOS DEL GRUPO -->
+<div class="zone-card active" id="zone-grupo">
+  <div class="zone-header">📋 Datos del Proyecto y Equipo <span class="zone-badge">Inicio</span></div>
+  <div class="zone-body">
+    <div class="instruccion">Antes de comenzar, lean las indicaciones: piensen en la idea del problema de investigación que plantearon en el taller anterior, comenten con sus compañeros y definan cuál de las opciones les interesa más para trabajar en equipo. Registren los datos a continuación.</div>
+    <label class="fl">Título del proyecto / tema de investigación</label>
+    <input type="text" id="proyecto" placeholder="Ej: Pensamiento crítico y memes de internet..."/>
+    <label class="fl">Fecha de realización del taller</label>
+    <input type="date" id="fecha"/>
+    <label class="fl">Integrante 1 (obligatorio)</label>
+    <input type="text" id="int1" placeholder="Nombre completo..."/>
+    <label class="fl">Integrante 2 (opcional)</label>
+    <input type="text" id="int2" placeholder="Nombre completo..."/>
+    <label class="fl">Integrante 3 (opcional)</label>
+    <input type="text" id="int3" placeholder="Nombre completo..."/>
+    <label class="fl">Integrante 4 (opcional)</label>
+    <input type="text" id="int4" placeholder="Nombre completo..."/>
+    <div class="nav-btns"><button class="bn" onclick="goTo(1)">Comenzar taller →</button></div>
+  </div>
+</div>
+
+<!-- PASO 1: IDEA DEL PROBLEMA (3 MANERAS) -->
+<div class="zone-card" id="zone-idea">
+  <div class="zone-header">💡 Paso 1 — Idea del Problema <span class="zone-badge">Paso 1 de 5</span></div>
+  <div class="zone-body">
+    <div class="instruccion">
+      <strong>📋 Instrucción:</strong> Escriban la idea que describe el problema de investigación que plantearon. 
+      Escríbanlo de <strong>tres maneras diferentes</strong> para explorar distintos matices conceptuales.
+    </div>
+    <label class="fl">Redacción de la Idea 1</label>
+    <textarea id="idea1" placeholder="Primera forma de plantear la idea de investigación..."></textarea>
+    <label class="fl">Redacción de la Idea 2</label>
+    <textarea id="idea2" placeholder="Segunda forma de plantear la idea de investigación..."></textarea>
+    <label class="fl">Redacción de la Idea 3</label>
+    <textarea id="idea3" placeholder="Tercera forma de plantear la idea de investigación..."></textarea>
+    <div class="nav-btns">
+      <button class="bp" onclick="goTo(-1)">← Anterior</button>
+      <button class="bn" onclick="goTo(1)">Siguiente →</button>
+    </div>
+  </div>
+</div>
+
+<!-- PASO 2: SELECCIÓN DE LA MEJOR IDEA -->
+<div class="zone-card" id="zone-filtro">
+  <div class="zone-header">🎯 Paso 2 — Selección y Análisis Gramatical <span class="zone-badge">Paso 2 de 5</span></div>
+  <div class="zone-body">
+    <div class="instruccion">
+      <strong>📋 Instrucción:</strong> Seleccionen la idea que creen que mejor describe el tema o la cuestión que quieren abordar en el proyecto. 
+      Luego, identifiquen mentalmente o escriban separando en color rojo todos los <strong>artículos, verbos, adjetivos y adverbios</strong> para aislar el núcleo conceptual.
+    </div>
+    <div class="info-box">
+      <strong>🔗 Enlaces de apoyo recomendados:</strong>
+      • <a href="https://www.ejemplos.co/adverbios/" target="_blank">Ejemplos de Adverbios</a> | 
+      • <a href="https://www.ejemplos.co/tiempos-verbales/" target="_blank">Ejemplos Tiempos Verbales</a> | 
+      • <a href="https://www.ejemplos.co/?s=adjetivos" target="_blank">Ejemplos Adjetivos</a> | 
+      • <a href="https://www.ejemplos.co/complementos-del-sustantivo/" target="_blank">Ejemplos de Artículos</a>
+    </div>
+    <label class="fl">Idea seleccionada definitiva</label>
+    <textarea id="idea_seleccionada" placeholder="Copia aquí la mejor redacción de la idea elegida..."></textarea>
+    <label class="fl">Desglose de palabras eliminadas (artículos, verbos, adjetivos, adverbios descartados)</label>
+    <textarea id="descartadas" class="sm" placeholder="Palabras auxiliares o conectores identificados..."></textarea>
+    <div class="nav-btns">
+      <button class="bp" onclick="goTo(-1)">← Anterior</button>
+      <button class="bn" onclick="goTo(1)">Siguiente →</button>
+    </div>
+  </div>
+</div>
+
+<!-- PASO 3: PALABRAS CLAVE PRINCIPALES -->
+<div class="zone-card" id="zone-palabras">
+  <div class="zone-header">🔑 Paso 3 — Palabras Clave Principales <span class="zone-badge">Paso 3 de 5</span></div>
+  <div class="zone-body">
+    <div class="instruccion">
+      <strong>📋 Instrucción:</strong> Escriban aquí <strong>SOLAMENTE</strong> las palabras clave principales que quedaron escritas en color negro en el punto anterior. Revisen que no se repitan.
+    </div>
+    <label class="fl">Listado de Palabras Clave (Separadas por comas o guiones)</label>
+    <textarea id="palabras_clave" placeholder="Ej: pensamiento crítico, investigación, impacto, memes, internet, formato, cuestionamiento socrático..."></textarea>
+    <div class="nav-btns">
+      <button class="bp" onclick="goTo(-1)">← Anterior</button>
+      <button class="bn" onclick="goTo(1)">Siguiente →</button>
+    </div>
+  </div>
+</div>
+
+<!-- PASO 4: SINÓNIMOS Y TÉRMINOS HOMÓLOGOS -->
+<div class="zone-card" id="zone-sinonimos">
+  <div class="zone-header">📚 Paso 4 — Búsqueda de Sinónimos <span class="zone-badge">Paso 4 de 5</span></div>
+  <div class="zone-body">
+    <div class="instruccion">
+      <strong>📋 Instrucción:</strong> Tomen las palabras clave seleccionadas y busquen términos homólogos o sinónimos para enriquecer futuras búsquedas bibliográficas.
+    </div>
+    <div class="info-box">
+      <strong>🌐 Herramientas de búsqueda recomendadas:</strong>
+      • <a href="http://vocabularies.unesco.org/browser/thesaurus/es/" target="_blank">Tesauro de la UNESCO</a> | 
+      • <a href="https://servicios.elpais.com/diccionarios/sinonimos-antonimos/" target="_blank">Diccionario El País</a> | 
+      • <a href="http://www.wordreference.com/sinonimos/diccionario" target="_blank">WordReference Sinónimos</a>
+    </div>
+    <label class="fl">Sinónimos y términos homólogos por concepto</label>
+    <textarea id="sinonimos" placeholder="Ej: 1. Pensamiento crítico: razonamiento, critical thinking... 2. Investigación: indagación, exploración..."></textarea>
+    <div class="nav-btns">
+      <button class="bp" onclick="goTo(-1)">← Anterior</button>
+      <button class="bn" onclick="goTo(1)">Siguiente →</button>
+    </div>
+  </div>
+</div>
+
+<!-- PASO 5: COMBINACIONES BOOLEANAS -->
+<div class="zone-card" id="zone-combinaciones">
+  <div class="zone-header">🔀 Paso 5 — Combinaciones de Búsqueda <span class="zone-badge">Paso 5 de 5</span></div>
+  <div class="zone-body">
+    <div class="instruccion">
+      <strong>📋 Instrucción:</strong> Escriban <strong>TODAS las posibles combinaciones</strong> (ecuaciones de búsqueda con operadores booleanos OR / AND) con esas palabras y sinónimos, de manera que resuman lo que quieren abordar en su problema de investigación.
+    </div>
+    <div class="grid-3">
+      <div><div class="col-lbl">Combinación 1</div><textarea id="comb1" placeholder="Ecuación de búsqueda 1..."></textarea></div>
+      <div><div class="col-lbl">Combinación 2</div><textarea id="comb2" placeholder="Ecuación de búsqueda 2..."></textarea></div>
+      <div><div class="col-lbl">Combinación 3</div><textarea id="comb3" placeholder="Ecuación de búsqueda 3..."></textarea></div>
+    </div>
+    <div class="nav-btns">
+      <button class="bp" onclick="goTo(-1)">← Anterior</button>
+      <button class="bn" onclick="goTo(1)">Ver reporte y descargar →</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESUMEN / DESCARGA -->
+<div class="zone-card" id="zone-resumen">
+  <div class="zone-header">📄 Reporte Consolidado del Taller — Descarga <span class="zone-badge" style="background:rgba(255,255,255,0.25)">Final</span></div>
+  <div class="zone-body">
+    <p style="font-size:0.88rem;color:#555;margin-bottom:14px;">El taller de formulación de palabras clave está completo. Revísenlo antes de descargar su entrega.</p>
+    <div id="arbol-preview" style="overflow-x:auto;border:1px solid #ccc;border-radius:8px;"></div>
+    <div id="download-area">
+      <button class="bd" onclick="downloadWord()">⬇ Descargar Word (.doc)</button>
+      <button class="bd pdf" onclick="downloadPDF()">⬇ Descargar PDF</button>
+    </div>
+    <p class="fnote">Garcia-Chitiva, M. (s.f.) Taller de Formulación de palabras clave de Investigación.</p>
+    <div class="nav-btns"><button class="bp" onclick="goTo(-1)">← Volver a editar</button></div>
+  </div>
+</div>
+
+</main>
+
+<script>
+const zones = ['grupo','idea','filtro','palabras','sinonimos','combinaciones','resumen'];
+let current = 0;
+
+function buildDots() {
+  const c = document.getElementById('pdots');
+  c.innerHTML = '';
+  const labels = ['★','1','2','3','4','5','✓'];
+  for (let i = 0; i < 7; i++) {
+    const d = document.createElement('div');
+    d.className = 'step-dot' + (i < current ? ' done' : '') + (i === current ? ' active' : '');
+    d.textContent = labels[i];
+    const ii = i; d.onclick = () => jumpTo(ii);
+    c.appendChild(d);
+  }
+}
+
+function jumpTo(idx) {
+  document.getElementById('zone-' + zones[current]).classList.remove('active');
+  current = idx;
+  document.getElementById('zone-' + zones[current]).classList.add('active');
+  buildDots();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function goTo(dir) {
+  const next = current + dir;
+  if (next < 0 || next >= zones.length) return;
+  if (next === zones.length - 1) buildArbol();
+  document.getElementById('zone-' + zones[current]).classList.remove('active');
+  current = next;
+  document.getElementById('zone-' + zones[current]).classList.add('active');
+  buildDots();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function g(id) { const e = document.getElementById(id); return e ? (e.value || '') : ''; }
+
+function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/
+/g,'<br>'); }
+
+function formatFecha(iso) {
+  if (!iso) return '(fecha no indicada)';
+  const [y,m,d] = iso.split('-');
+  const M = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  return parseInt(d) + ' de ' + M[parseInt(m)-1] + ' de ' + y;
+}
+
+function getInts() { return [g('int1'),g('int2'),g('int3'),g('int4')].filter(n=>n.trim()); }
+
+function arbolHTML() {
+  const fecha = formatFecha(g('fecha'));
+  const proyecto = esc(g('proyecto')) || '(sin nombre de proyecto)';
+  const ints = getInts();
+  const intStr = ints.map(n=>esc(n)).join(' &nbsp;·&nbsp; ') || '(sin integrantes)';
+
+  return `<div style="font-family:Calibri,Arial,sans-serif;font-size:11px;background:white;padding:15px;min-width:680px;">
+
+  <!-- TÍTULO -->
+  <div style="background:#2e7d32;color:white;padding:10px 14px;font-weight:700;font-size:14px;text-align:center;border-radius:4px;letter-spacing:0.5px;margin-bottom:10px;">
+    TALLER: FORMULACIÓN DE PALABRAS CLAVE DE INVESTIGACIÓN
+  </div>
+
+  <!-- META -->
+  <table style="width:100%;border-collapse:collapse;background:#f1f8e9;margin-bottom:15px;">
+    <tr>
+      <td style="border:1px solid #c8e6c9;padding:6px 10px;width:45%;">
+        <strong>Proyecto:</strong> ${proyecto}
+      </td>
+      <td style="border:1px solid #c8e6c9;padding:6px 10px;width:35%;">
+        <strong>Integrantes:</strong> ${intStr}
+      </td>
+      <td style="border:1px solid #c8e6c9;padding:6px 10px;width:20%;">
+        <strong>Fecha:</strong> ${fecha}
+      </td>
+    </tr>
+  </table>
+
+  <!-- CONTENIDO REPORTE -->
+  <table style="width:100%;border-collapse:collapse;font-size:11px;">
+    <tr>
+      <td style="background:#e8f5e9;border:1px solid #a5d6a7;padding:8px;font-weight:700;width:25%;">1. Ideas del Problema (3 variantes)</td>
+      <td style="border:1px solid #ddd;padding:8px;">
+        <strong>Idea 1:</strong> ${esc(g('idea1'))}<br><br>
+        <strong>Idea 2:</strong> ${esc(g('idea2'))}<br><br>
+        <strong>Idea 3:</strong> ${esc(g('idea3'))}
+      </td>
+    </tr>
+    <tr>
+      <td style="background:#e8f5e9;border:1px solid #a5d6a7;padding:8px;font-weight:700;">2. Idea Seleccionada y Desglose</td>
+      <td style="border:1px solid #ddd;padding:8px;">
+        <strong>Idea Elegida:</strong> ${esc(g('idea_seleccionada'))}<br><br>
+        <strong>Elementos descartados (artículos, verbos, adjetivos, adverbios):</strong> ${esc(g('descartadas'))}
+      </td>
+    </tr>
+    <tr>
+      <td style="background:#e8f5e9;border:1px solid #a5d6a7;padding:8px;font-weight:700;">3. Palabras Clave Principales</td>
+      <td style="border:1px solid #ddd;padding:8px;font-weight:700;color:#1b5e20;">
+        ${esc(g('palabras_clave'))}
+      </td>
+    </tr>
+    <tr>
+      <td style="background:#e8f5e9;border:1px solid #a5d6a7;padding:8px;font-weight:700;">4. Sinónimos y Homólogos</td>
+      <td style="border:1px solid #ddd;padding:8px;">
+        ${esc(g('sinonimos'))}
+      </td>
+    </tr>
+    <tr>
+      <td style="background:#e8f5e9;border:1px solid #a5d6a7;padding:8px;font-weight:700;">5. Combinaciones Booleanas</td>
+      <td style="border:1px solid #ddd;padding:8px;">
+        <strong>Combinación 1:</strong> ${esc(g('comb1'))}<br><br>
+        <strong>Combinación 2:</strong> ${esc(g('comb2'))}<br><br>
+        <strong>Combinación 3:</strong> ${esc(g('comb3'))}
+      </td>
+    </tr>
+  </table>
+
+  <div style="font-size:9px;color:#888;text-align:center;padding:10px 0 2px;border-top:1px solid #ddd;margin-top:15px;">
+    Garcia-Chitiva, M. (s.f.) Taller de Formulación de palabras clave de Investigación.
+  </div>
+</div>`;
+}
+
+function buildArbol() {
+  document.getElementById('arbol-preview').innerHTML = arbolHTML();
+}
+
+function fullDocHTML() {
+  return `<!DOCTYPE html><html><head><meta charset="utf-8">
+<title>Taller Palabras Clave</title>
+<style>
+@page{margin:1.2cm;}
+body{font-family:Calibri,Arial,sans-serif;font-size:11px;color:#222;margin:0;padding:0;}
+table{border-collapse:collapse;}
+td{vertical-align:top;}
+</style></head><body>${arbolHTML()}</body></html>`;
+}
+
+function downloadWord() {
+  const nombre = (getInts()[0]||'grupo').replace(/\s+/g,'_');
+  const blob = new Blob(['﻿'+fullDocHTML()],{type:'application/msword'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'Palabras_Clave_'+nombre+'.doc';
+  a.click();
+}
+
+function downloadPDF() {
+  const pw = window.open('','_blank','width=960,height=720');
+  pw.document.write(fullDocHTML());
+  pw.document.close();
+  setTimeout(()=>{ pw.focus(); pw.print(); }, 700);
+}
+
+document.getElementById('fecha').value = new Date().toISOString().split('T')[0];
+buildDots();
+</script>
+</body>
+</html>
