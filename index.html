@@ -52,9 +52,8 @@ input[type=text]:focus, input[type=date]:focus, textarea:focus { outline: none; 
 textarea { resize: vertical; min-height: 88px; }
 textarea.sm { min-height: 70px; }
 
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
-@media(max-width:640px) { .grid-3,.grid-2 { grid-template-columns: 1fr; } }
+@media(max-width:640px) { .grid-3 { grid-template-columns: 1fr; } }
 
 .col-lbl { font-size: 0.77rem; font-weight: 700; text-align: center; padding: 5px; border-radius: 5px; margin-bottom: 7px; background: rgba(0,0,0,0.08); color: #333; }
 
@@ -113,7 +112,7 @@ button { padding: 9px 22px; border-radius: 7px; font-size: 0.9rem; font-weight: 
     <input type="text" id="int3" placeholder="Nombre completo..."/>
     <label class="fl">Integrante 4 (opcional)</label>
     <input type="text" id="int4" placeholder="Nombre completo..."/>
-    <div class="nav-btns"><button class="bn" onclick="goTo(1)">Comenzar taller →</button></div>
+    <div class="nav-btns"><button type="button" class="bn" onclick="goTo(1)">Comenzar taller →</button></div>
   </div>
 </div>
 
@@ -132,8 +131,8 @@ button { padding: 9px 22px; border-radius: 7px; font-size: 0.9rem; font-weight: 
     <label class="fl">Redacción de la Idea 3</label>
     <textarea id="idea3" placeholder="Tercera forma de plantear la idea de investigación..."></textarea>
     <div class="nav-btns">
-      <button class="bp" onclick="goTo(-1)">← Anterior</button>
-      <button class="bn" onclick="goTo(1)">Siguiente →</button>
+      <button type="button" class="bp" onclick="goTo(-1)">← Anterior</button>
+      <button type="button" class="bn" onclick="goTo(1)">Siguiente →</button>
     </div>
   </div>
 </div>
@@ -158,8 +157,8 @@ button { padding: 9px 22px; border-radius: 7px; font-size: 0.9rem; font-weight: 
     <label class="fl">Desglose de palabras eliminadas (artículos, verbos, adjetivos, adverbios descartados)</label>
     <textarea id="descartadas" class="sm" placeholder="Palabras auxiliares o conectores identificados..."></textarea>
     <div class="nav-btns">
-      <button class="bp" onclick="goTo(-1)">← Anterior</button>
-      <button class="bn" onclick="goTo(1)">Siguiente →</button>
+      <button type="button" class="bp" onclick="goTo(-1)">← Anterior</button>
+      <button type="button" class="bn" onclick="goTo(1)">Siguiente →</button>
     </div>
   </div>
 </div>
@@ -174,8 +173,8 @@ button { padding: 9px 22px; border-radius: 7px; font-size: 0.9rem; font-weight: 
     <label class="fl">Listado de Palabras Clave (Separadas por comas o guiones)</label>
     <textarea id="palabras_clave" placeholder="Ej: pensamiento crítico, investigación, impacto, memes, internet, formato, cuestionamiento socrático..."></textarea>
     <div class="nav-btns">
-      <button class="bp" onclick="goTo(-1)">← Anterior</button>
-      <button class="bn" onclick="goTo(1)">Siguiente →</button>
+      <button type="button" class="bp" onclick="goTo(-1)">← Anterior</button>
+      <button type="button" class="bn" onclick="goTo(1)">Siguiente →</button>
     </div>
   </div>
 </div>
@@ -196,8 +195,8 @@ button { padding: 9px 22px; border-radius: 7px; font-size: 0.9rem; font-weight: 
     <label class="fl">Sinónimos y términos homólogos por concepto</label>
     <textarea id="sinonimos" placeholder="Ej: 1. Pensamiento crítico: razonamiento, critical thinking... 2. Investigación: indagación, exploración..."></textarea>
     <div class="nav-btns">
-      <button class="bp" onclick="goTo(-1)">← Anterior</button>
-      <button class="bn" onclick="goTo(1)">Siguiente →</button>
+      <button type="button" class="bp" onclick="goTo(-1)">← Anterior</button>
+      <button type="button" class="bn" onclick="goTo(1)">Siguiente →</button>
     </div>
   </div>
 </div>
@@ -215,8 +214,8 @@ button { padding: 9px 22px; border-radius: 7px; font-size: 0.9rem; font-weight: 
       <div><div class="col-lbl">Combinación 3</div><textarea id="comb3" placeholder="Ecuación de búsqueda 3..."></textarea></div>
     </div>
     <div class="nav-btns">
-      <button class="bp" onclick="goTo(-1)">← Anterior</button>
-      <button class="bn" onclick="goTo(1)">Ver reporte y descargar →</button>
+      <button type="button" class="bp" onclick="goTo(-1)">← Anterior</button>
+      <button type="button" class="bn" onclick="goTo(1)">Ver reporte y descargar →</button>
     </div>
   </div>
 </div>
@@ -228,11 +227,11 @@ button { padding: 9px 22px; border-radius: 7px; font-size: 0.9rem; font-weight: 
     <p style="font-size:0.88rem;color:#555;margin-bottom:14px;">El taller de formulación de palabras clave está completo. Revísenlo antes de descargar su entrega.</p>
     <div id="arbol-preview" style="overflow-x:auto;border:1px solid #ccc;border-radius:8px;"></div>
     <div id="download-area">
-      <button class="bd" onclick="downloadWord()">⬇ Descargar Word (.doc)</button>
-      <button class="bd pdf" onclick="downloadPDF()">⬇ Descargar PDF</button>
+      <button type="button" class="bd" onclick="downloadWord()">⬇ Descargar Word (.doc)</button>
+      <button type="button" class="bd pdf" onclick="downloadPDF()">⬇ Descargar PDF</button>
     </div>
     <p class="fnote">Garcia-Chitiva, M. (s.f.) Taller de Formulación de palabras clave de Investigación.</p>
-    <div class="nav-btns"><button class="bp" onclick="goTo(-1)">← Volver a editar</button></div>
+    <div class="nav-btns"><button type="button" class="bp" onclick="goTo(-1)">← Volver a editar</button></div>
   </div>
 </div>
 
@@ -244,21 +243,26 @@ let current = 0;
 
 function buildDots() {
   const c = document.getElementById('pdots');
+  if (!c) return;
   c.innerHTML = '';
   const labels = ['★','1','2','3','4','5','✓'];
   for (let i = 0; i < 7; i++) {
     const d = document.createElement('div');
     d.className = 'step-dot' + (i < current ? ' done' : '') + (i === current ? ' active' : '');
     d.textContent = labels[i];
-    const ii = i; d.onclick = () => jumpTo(ii);
+    const ii = i; 
+    d.onclick = () => jumpTo(ii);
     c.appendChild(d);
   }
 }
 
 function jumpTo(idx) {
-  document.getElementById('zone-' + zones[current]).classList.remove('active');
+  if (idx < 0 || idx >= zones.length) return;
+  const currentCard = document.getElementById('zone-' + zones[current]);
+  const nextCard = document.getElementById('zone-' + zones[idx]);
+  if (currentCard) currentCard.classList.remove('active');
   current = idx;
-  document.getElementById('zone-' + zones[current]).classList.add('active');
+  if (nextCard) nextCard.classList.add('active');
   buildDots();
   window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -267,26 +271,31 @@ function goTo(dir) {
   const next = current + dir;
   if (next < 0 || next >= zones.length) return;
   if (next === zones.length - 1) buildArbol();
-  document.getElementById('zone-' + zones[current]).classList.remove('active');
-  current = next;
-  document.getElementById('zone-' + zones[current]).classList.add('active');
-  buildDots();
-  window.scrollTo({top:0,behavior:'smooth'});
+  jumpTo(next);
 }
 
-function g(id) { const e = document.getElementById(id); return e ? (e.value || '') : ''; }
+function g(id) { 
+  const e = document.getElementById(id); 
+  return e ? (e.value || '') : ''; 
+}
 
-function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/
-/g,'<br>'); }
+function esc(s) { 
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>'); 
+}
 
 function formatFecha(iso) {
   if (!iso) return '(fecha no indicada)';
-  const [y,m,d] = iso.split('-');
+  const parts = iso.split('-');
+  if (parts.length !== 3) return iso;
+  const [y,m,d] = parts;
   const M = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-  return parseInt(d) + ' de ' + M[parseInt(m)-1] + ' de ' + y;
+  return parseInt(d, 10) + ' de ' + M[parseInt(m, 10)-1] + ' de ' + y;
 }
 
-function getInts() { return [g('int1'),g('int2'),g('int3'),g('int4')].filter(n=>n.trim()); }
+function getInts() { 
+  return [g('int1'),g('int2'),g('int3'),g('int4')].filter(n=>n.trim()); 
+}
 
 function arbolHTML() {
   const fecha = formatFecha(g('fecha'));
@@ -295,28 +304,16 @@ function arbolHTML() {
   const intStr = ints.map(n=>esc(n)).join(' &nbsp;·&nbsp; ') || '(sin integrantes)';
 
   return `<div style="font-family:Calibri,Arial,sans-serif;font-size:11px;background:white;padding:15px;min-width:680px;">
-
-  <!-- TÍTULO -->
   <div style="background:#2e7d32;color:white;padding:10px 14px;font-weight:700;font-size:14px;text-align:center;border-radius:4px;letter-spacing:0.5px;margin-bottom:10px;">
     TALLER: FORMULACIÓN DE PALABRAS CLAVE DE INVESTIGACIÓN
   </div>
-
-  <!-- META -->
   <table style="width:100%;border-collapse:collapse;background:#f1f8e9;margin-bottom:15px;">
     <tr>
-      <td style="border:1px solid #c8e6c9;padding:6px 10px;width:45%;">
-        <strong>Proyecto:</strong> ${proyecto}
-      </td>
-      <td style="border:1px solid #c8e6c9;padding:6px 10px;width:35%;">
-        <strong>Integrantes:</strong> ${intStr}
-      </td>
-      <td style="border:1px solid #c8e6c9;padding:6px 10px;width:20%;">
-        <strong>Fecha:</strong> ${fecha}
-      </td>
+      <td style="border:1px solid #c8e6c9;padding:6px 10px;width:45%;"><strong>Proyecto:</strong> ${proyecto}</td>
+      <td style="border:1px solid #c8e6c9;padding:6px 10px;width:35%;"><strong>Integrantes:</strong> ${intStr}</td>
+      <td style="border:1px solid #c8e6c9;padding:6px 10px;width:20%;"><strong>Fecha:</strong> ${fecha}</td>
     </tr>
   </table>
-
-  <!-- CONTENIDO REPORTE -->
   <table style="width:100%;border-collapse:collapse;font-size:11px;">
     <tr>
       <td style="background:#e8f5e9;border:1px solid #a5d6a7;padding:8px;font-weight:700;width:25%;">1. Ideas del Problema (3 variantes)</td>
@@ -330,20 +327,16 @@ function arbolHTML() {
       <td style="background:#e8f5e9;border:1px solid #a5d6a7;padding:8px;font-weight:700;">2. Idea Seleccionada y Desglose</td>
       <td style="border:1px solid #ddd;padding:8px;">
         <strong>Idea Elegida:</strong> ${esc(g('idea_seleccionada'))}<br><br>
-        <strong>Elementos descartados (artículos, verbos, adjetivos, adverbios):</strong> ${esc(g('descartadas'))}
+        <strong>Elementos descartados:</strong> ${esc(g('descartadas'))}
       </td>
     </tr>
     <tr>
       <td style="background:#e8f5e9;border:1px solid #a5d6a7;padding:8px;font-weight:700;">3. Palabras Clave Principales</td>
-      <td style="border:1px solid #ddd;padding:8px;font-weight:700;color:#1b5e20;">
-        ${esc(g('palabras_clave'))}
-      </td>
+      <td style="border:1px solid #ddd;padding:8px;font-weight:700;color:#1b5e20;">${esc(g('palabras_clave'))}</td>
     </tr>
     <tr>
       <td style="background:#e8f5e9;border:1px solid #a5d6a7;padding:8px;font-weight:700;">4. Sinónimos y Homólogos</td>
-      <td style="border:1px solid #ddd;padding:8px;">
-        ${esc(g('sinonimos'))}
-      </td>
+      <td style="border:1px solid #ddd;padding:8px;">${esc(g('sinonimos'))}</td>
     </tr>
     <tr>
       <td style="background:#e8f5e9;border:1px solid #a5d6a7;padding:8px;font-weight:700;">5. Combinaciones Booleanas</td>
@@ -354,7 +347,6 @@ function arbolHTML() {
       </td>
     </tr>
   </table>
-
   <div style="font-size:9px;color:#888;text-align:center;padding:10px 0 2px;border-top:1px solid #ddd;margin-top:15px;">
     Garcia-Chitiva, M. (s.f.) Taller de Formulación de palabras clave de Investigación.
   </div>
@@ -362,23 +354,17 @@ function arbolHTML() {
 }
 
 function buildArbol() {
-  document.getElementById('arbol-preview').innerHTML = arbolHTML();
+  const prev = document.getElementById('arbol-preview');
+  if (prev) prev.innerHTML = arbolHTML();
 }
 
 function fullDocHTML() {
-  return `<!DOCTYPE html><html><head><meta charset="utf-8">
-<title>Taller Palabras Clave</title>
-<style>
-@page{margin:1.2cm;}
-body{font-family:Calibri,Arial,sans-serif;font-size:11px;color:#222;margin:0;padding:0;}
-table{border-collapse:collapse;}
-td{vertical-align:top;}
-</style></head><body>${arbolHTML()}</body></html>`;
+  return `<!DOCTYPE html><html><head><meta charset="utf-8"><title>Taller Palabras Clave</title><style>@page{margin:1.2cm;}body{font-family:Calibri,Arial,sans-serif;font-size:11px;color:#222;margin:0;padding:0;}table{border-collapse:collapse;}td{vertical-align:top;}</style></head><body>${arbolHTML()}</body></html>`;
 }
 
 function downloadWord() {
   const nombre = (getInts()[0]||'grupo').replace(/\s+/g,'_');
-  const blob = new Blob(['﻿'+fullDocHTML()],{type:'application/msword'});
+  const blob = new Blob(['\ufeff'+fullDocHTML()],{type:'application/msword'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = 'Palabras_Clave_'+nombre+'.doc';
@@ -387,13 +373,21 @@ function downloadWord() {
 
 function downloadPDF() {
   const pw = window.open('','_blank','width=960,height=720');
-  pw.document.write(fullDocHTML());
-  pw.document.close();
-  setTimeout(()=>{ pw.focus(); pw.print(); }, 700);
+  if (pw) {
+    pw.document.write(fullDocHTML());
+    pw.document.close();
+    setTimeout(()=>{ pw.focus(); pw.print(); }, 700);
+  }
 }
 
-document.getElementById('fecha').value = new Date().toISOString().split('T')[0];
-buildDots();
+// Inicialización
+document.addEventListener("DOMContentLoaded", () => {
+  const fechaInput = document.getElementById('fecha');
+  if (fechaInput && !fechaInput.value) {
+    fechaInput.value = new Date().toISOString().split('T')[0];
+  }
+  buildDots();
+});
 </script>
 </body>
 </html>
